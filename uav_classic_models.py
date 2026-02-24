@@ -106,4 +106,4 @@ print("\nConfusion Matrix:\n", confusion_matrix(y_test_enc, y_test_pred_xgb))
 # Save XGB model
 joblib.dump(xgb_clf, "XGB_UAV_model.joblib")
 
-print("\n✅ Models trained and saved. You can now use them for inference.")
+print("\n Models trained and saved. You can now use them for inference.")
