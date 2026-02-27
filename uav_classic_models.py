@@ -8,9 +8,9 @@ import joblib
 # ==========================
 # 1. Load train/val/test CSVs
 # ==========================
-train_df = pd.read_csv("/home/aram/Downloads/train_dataset.csv")
-val_df   = pd.read_csv("/home/aram/Downloads/val_dataset.csv")
-test_df  = pd.read_csv("/home/aram/Downloads/test_dataset.csv")
+train_df = pd.read_csv("/home/aram/Downloads/train_dataset_v2.csv")
+val_df   = pd.read_csv("/home/aram/Downloads/val_dataset_v2.csv")
+test_df  = pd.read_csv("/home/aram/Downloads/test_dataset_v2.csv")
 
 FEATURES = [
     'vx', 'vy', 'vz', 'z',
@@ -85,7 +85,6 @@ xgb_clf = XGBClassifier(
     objective="multi:softmax",
     num_class=len(le.classes_),
     eval_metric="mlogloss",
-    use_label_encoder=False,
     random_state=42,
     n_jobs=-1
 )
@@ -106,4 +105,9 @@ print("\nConfusion Matrix:\n", confusion_matrix(y_test_enc, y_test_pred_xgb))
 # Save XGB model
 joblib.dump(xgb_clf, "XGB_UAV_model.joblib")
 
-print("\n Models trained and saved. You can now use them for inference.")
+print("\n✅ Models trained and saved. You can now use them for inference.")
+
+
+importances = rf_clf.feature_importances_
+for f, imp in zip(FEATURES, importances):
+    print("\n",f, imp)
