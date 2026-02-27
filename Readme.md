@@ -1,18 +1,11 @@
 🚁 UAV Flight Mode Classification from Telemetry
-
-📌 Project Overview
+📌 Overview
 
 This project implements a supervised multi-class classification system to identify UAV flight modes using high-frequency onboard telemetry data.
 
-By analyzing velocity, acceleration, angular rates, and attitude signals, the system mirrors real-world autopilot state estimation used in modern flight controllers.
+Flight logs were collected from public records of PX4 via PX4 Flight Review, merged, cleaned, augmented, and transformed into structured datasets for machine learning.
 
-Telemetry logs were collected from public flight records of PX4 via PX4 Flight Review, researched, merged, cleaned, and transformed into a structured ML-ready dataset.
-
-This project was developed as a team initiative and serves as a portfolio-ready aerospace machine learning project.
-
-🎯 Objective
-
-The goal is to classify UAV telemetry data into one of five flight modes:
+The system classifies UAV telemetry into five flight modes:
 
 Manual
 
@@ -24,20 +17,26 @@ Altitude
 
 Offboard
 
-Accurate classification of flight modes is critical for:
+This project was developed as a team initiative and serves as an internship-ready aerospace machine learning portfolio project.
 
-🛡️ Safety monitoring
+🎯 Objective
 
-🤖 Autonomous mission validation
+Correct identification of UAV flight modes is critical for:
 
-📊 Post-flight analysis
+Flight safety monitoring
 
-🧠 Autopilot behavior verification
+Autonomous mission validation
+
+Autopilot state verification
+
+Post-flight analytics
+
+The goal was to build a robust and reproducible ML pipeline capable of distinguishing flight dynamics purely from onboard telemetry signals.
 
 📊 Dataset
 📥 Data Source
 
-Public UAV flight logs from the PX4 ecosystem
+Public UAV flight logs from PX4 ecosystem
 
 Logs combined from multiple real flights
 
@@ -51,7 +50,7 @@ Cleaned and standardized into a unified dataset
 
 10% — Testing
 
-The final evaluation was performed on the held-out 10% test dataset.
+Final performance was evaluated on the independent 10% test set.
 
 📈 Features Used
 Velocity
@@ -74,65 +73,66 @@ Attitude
 
 roll, pitch, yaw
 
-🎯 Target Variable
-
+Target Variable:
 flight_mode
 
-🧠 Data Augmentation Strategy
+🧠 Data Processing Pipeline
 
-To improve generalization and increase dataset diversity:
+The project includes a structured preprocessing workflow:
+
+Log collection and merging
+
+Data cleaning and formatting
+
+Feature scaling
+
+Label encoding
+
+Dataset balancing
+
+Data augmentation
+
+Train / Validation / Test split
+
+🔄 Data Augmentation Strategy
+
+To improve generalization:
 
 Sequential telemetry samples were paired
 
-The mean of two consecutive data points was computed
+The mean of two consecutive samples was computed
 
-The averaged sample was appended to the dataset
+The averaged sample was appended to the training dataset
 
-This approach:
+This preserves temporal continuity while increasing dataset density.
 
-Preserves temporal continuity
+⚖ Dataset Balancing
 
-Increases effective dataset size
+Balanced models were trained to address class imbalance, improving robustness across flight modes.
 
-Avoids artificial noise injection
+🤖 Models Trained
 
-🛠 Tech Stack
-
-Language: Python 3.x
-
-Data Handling: Pandas, NumPy
-
-Machine Learning: Scikit-Learn, XGBoost
-
-Visualization: Matplotlib, Seaborn
-
-Model Persistence: Joblib
-
-🤖 Models Evaluated
-
-We trained and compared multiple classical machine learning models:
+Multiple classical ML models were trained and saved:
 
 Logistic Regression
 
+Support Vector Machine (Linear & RBF)
+
 Random Forest
 
-Support Vector Machine (SVM)
-
-K-Nearest Neighbors (KNN)
-
-Gradient Boosting
+LightGBM
 
 XGBoost
 
-🏆 Best Performing Model: XGBoost
+Balanced versions of models were also trained.
 
-XGBoost achieved the highest validation performance and was selected as the final model.
+🏆 Best Performing Model
 
-🔹 Final F1-score and detailed metrics will be added.
+XGBoost achieved the best validation performance and was selected as the final model.
+
+(Specific F1-score will be added.)
 
 📊 Evaluation Metrics
-
-Models were evaluated using:
 
 Accuracy
 
@@ -144,73 +144,97 @@ F1-Score
 
 Confusion Matrix
 
-Evaluation was performed on a separate validation set and confirmed on the independent test set.
+A full-system validation script is included for end-to-end evaluation.
 
 📁 Repository Structure
 ├── Readme.md
 ├── dataframe_creation.md
 ├── final_uav_telemetry.csv
+│
+├── build_dataset.py
+├── split_dataset.py
+├── balanced_dataset.py
+├── augment_train_only.py
+├── create_window_dataset.py
+├── flight_level_dataset.py
+│
 ├── uav_dataset.py
+├── train_models.py
 ├── uav_classic_models.py
+├── uav_full_system_validation.py
 ├── test.py
+│
+├── best_model.pkl
+├── XGBoost_model_v2.pkl
+├── XGBoost_balanced_model.joblib
+├── LightGBM_balanced_model.joblib
+├── LogisticRegression_balanced_model.joblib
+├── SVM_balanced_model.joblib
+├── SVM_RBF_model_v2.pkl
+│
 ├── features_scaler.joblib
+├── uav_scaler_v2.pkl
 └── flight_mode_encoder.joblib
-📄 File Description
-
-uav_dataset.py → Dataset preprocessing & feature preparation
-
-uav_classic_models.py → Model training & benchmarking
-
-test.py → Model evaluation on test dataset
-
-features_scaler.joblib → Saved feature scaler
-
-flight_mode_encoder.joblib → Encoded label transformer
-
-dataframe_creation.md → Documentation of dataset construction process
-
-🚀 Installation & Usage
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-2️⃣ Install Dependencies
+🚀 How to Run
+1️⃣ Install Dependencies
 pip install -r requirements.txt
+2️⃣ Build / Prepare Dataset
+python build_dataset.py
+python split_dataset.py
 3️⃣ Train Models
-python uav_classic_models.py
-4️⃣ Run Testing
+python train_models.py
+4️⃣ Run Evaluation
+python uav_full_system_validation.py
+
+Or test directly:
+
 python test.py
-📌 Key Highlights
+🛠 Tech Stack
 
-✔ Multi-class UAV flight mode classification
-✔ Real-world PX4 telemetry data
+Python 3.x
+
+Pandas
+
+NumPy
+
+Scikit-Learn
+
+XGBoost
+
+LightGBM
+
+Matplotlib
+
+Seaborn
+
+Joblib
+
+💡 Key Highlights
+
+✔ Real-world aerospace telemetry dataset
+✔ Multi-class classification (5 flight modes)
 ✔ Custom temporal data augmentation
+✔ Balanced dataset training
 ✔ Multiple model benchmarking
-✔ Structured Train/Validation/Test split
-✔ Reproducible ML pipeline
-✔ Saved scaler and encoder for deployment
-
-🔍 Why This Project Is Internship-Ready
-
-Uses real aerospace telemetry data
-
-Demonstrates full ML lifecycle (data collection → preprocessing → training → evaluation)
-
-Applies model benchmarking and validation strategy
-
-Implements reproducible pipeline with saved artifacts
-
-Shows practical understanding of classification in control systems
+✔ Saved production-ready models
+✔ End-to-end validation pipeline
+✔ Reproducible ML workflow
 
 🔮 Future Improvements
 
-LSTM / Temporal Deep Learning models
+Temporal deep learning models (LSTM / GRU / CNN)
 
-Real-time flight mode inference
+Real-time onboard inference
 
-Feature importance & interpretability analysis
+Feature importance & explainability (SHAP)
 
-Deployment-ready inference API
+Deployment as an API
 
-Edge deployment on embedded flight hardware
+Edge deployment on flight hardware
 
-Larger multi-airframe dataset expansion
+Expansion to larger multi-airframe datasets
+
+👨‍💻 Project Context
+
+Developed as a team machine learning project focused on UAV telemetry analytics and applied classification systems.
+Designed to demonstrate practical ML pipeline development using real aerospace flight data.
