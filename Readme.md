@@ -20,7 +20,7 @@ Flight logs were collected from public PX4 records, merged, cleaned, augmented, 
 ### 📥 Data Source
 * Public UAV flight logs from the PX4 ecosystem.
 * Standardized into a unified dataset.
-* Split: **80% Training | 10% Validation | 10% Testing.**
+* Split: **70% Training | 15% Validation | 15% Testing.**
 
 ### 📈 Features
 * **Velocity:** $v_x, v_y, v_z$
@@ -104,4 +104,5 @@ XGBoost (Best Performing Model)
 This project was developed as a team initiative to demonstrate practical Machine Learning pipeline development within the aerospace domain. It focuses on the intersection of telemetry analytics and autonomous systems validation.
 
 ---
+
 
