@@ -2,7 +2,6 @@
 
 [![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
 [![Machine Learning](https://img.shields.io/badge/ML-XGBoost%20%7C%20Scikit--Learn-green.svg)](https://github.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📌 Overview
 This project implements a supervised multi-class classification system to identify UAV flight modes using high-frequency onboard telemetry data. 
@@ -40,11 +39,20 @@ Flight logs were collected from public PX4 records, merged, cleaned, augmented, 
 4. **Balancing:** Addressed class imbalance to ensure robust performance across all flight modes.
 
 ### 🤖 Models Trained
-* Logistic Regression
-* Support Vector Machine (Linear & RBF)
-* Random Forest
-* LightGBM
-* **XGBoost (Best Performing Model)**
+
+Logistic Regression
+
+Support Vector Machine (Linear & RBF)
+
+Random Forest
+
+LightGBM
+
+K-Nearest Neighbors (KNN)
+
+Naive Bayes
+
+XGBoost (Best Performing Model)
 
 ---
 
@@ -96,3 +104,4 @@ Flight logs were collected from public PX4 records, merged, cleaned, augmented, 
 This project was developed as a team initiative to demonstrate practical Machine Learning pipeline development within the aerospace domain. It focuses on the intersection of telemetry analytics and autonomous systems validation.
 
 ---
+
