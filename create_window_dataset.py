@@ -1,9 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# ==========================
 # CONFIG
-# ==========================
 WINDOW_SIZE = 50
 STEP = 25
 
@@ -17,15 +15,13 @@ FEATURES = [
 TARGET = "flight_mode"
 FLIGHT_COLUMN = "id"
 
-#TRAIN_PATH = "/home/aram/Downloads/train_dataset_v2.csv"
 TRAIN_PATH = "/home/aram/Downloads/train_dataset_v2_augmented.csv"
 VAL_PATH   = "/home/aram/Downloads/val_dataset_v2.csv"
 TEST_PATH  = "/home/aram/Downloads/test_dataset_v2.csv"
 
 
-# ==========================
+
 # Window Creator
-# ==========================
 def create_windows(df, dataset_name="dataset"):
 
     window_data = []
@@ -72,9 +68,7 @@ def create_windows(df, dataset_name="dataset"):
     return window_df
 
 
-# ==========================
 # MAIN
-# ==========================
 print("Loading datasets...")
 
 train_df = pd.read_csv(TRAIN_PATH)
@@ -98,5 +92,3 @@ print("\n Window datasets created successfully.")
 print("Train windows:", len(train_win))
 print("Val windows:", len(val_win))
 print("Test windows:", len(test_win))
-
-#/home/aram/Downloads/train_window_augmented.csv
